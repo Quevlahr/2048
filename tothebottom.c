@@ -20,7 +20,7 @@ static int		ft_control(int **tab, int ij, int num)
 	j = ij % 10;
 	ij /= 10;
 	i = ij;
-	i++;
+	i--;
 	while (i >= 0)
 	{
 		if (tab[i][j] == num)
@@ -82,7 +82,7 @@ int				tothebottom(int **tab, int nb)
 		while (i >= 0)
 		{
 			ij = i * 10 + j;
-			if ((num = tab[i][j]) && (tmp_i = ft_control(tab, ij, num)) != -1)
+			if ((num = tab[i][j]) != 0 && (tmp_i = ft_control(tab, ij, num)) != -1)
 			{
 				tab[tmp_i][j] = 0;
 				tab[i][j] = num * 2;
