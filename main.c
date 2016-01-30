@@ -152,7 +152,12 @@ int				main(void)
 		else if (key == KEY_UP)
 		{
 			if (tothetop(tab, nb) != 0)
-				rand_tab(tab, )
+				rand_tab(tab, nb);
+		}
+		else if (key == KEY_DOWN)
+		{
+			if (tothebottom(tab, nb) != 0)
+				rand_tab(tab, nb);
 		}
 	}
 	return (0);

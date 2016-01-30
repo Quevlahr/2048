@@ -23,6 +23,8 @@
 int				main(void);
 int				totheleft(int **tab, int nb);
 int				totheright(int **tab, int nb);
+int				tothetop(int **tab, int nb);
+int				tothebottom(int **tab, int nb);
 int				print_tab(int **tab, int nb);
 
 #endif

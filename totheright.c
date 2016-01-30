@@ -12,9 +12,8 @@
 
 #include "game.h"
 
-static int		ft_control(int *tab, int j, int num, int nb)
+static int		ft_control(int *tab, int j, int num)
 {
-	nb = 0; //
 	j--;
 	while (j >= 0)
 	{
@@ -76,7 +75,7 @@ int				totheright(int **tab, int nb)
 
 		while (j >= 0)
 		{
-			if ((num = tab[i][j]) && (tmp_j = ft_control(tab[i], j, num, nb)) != -1)
+			if ((num = tab[i][j]) && (tmp_j = ft_control(tab[i], j, num)) != -1)
 			{
 				tab[i][tmp_j] = 0;
 				tab[i][j] = num * 2;
