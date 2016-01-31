@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_tab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: quroulon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jaubard <jaubard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 12:52:21 by quroulon          #+#    #+#             */
-/*   Updated: 2016/01/31 12:52:47 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/01/31 16:35:11 by jaubard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int				print_tab(WINDOW *grid, int **tab, int nb)
 	int			y;
 
 	getmaxyx(grid, y, x);
-	if (y < 9 || x < 37)
+	if (y < 17 || x < 37)
 	{
 		printw("Agrandissez la fenetre");
 		return (0);

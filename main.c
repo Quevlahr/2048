@@ -38,8 +38,10 @@ static int		**create_tab(int **tab, int nb)
 static int		initncurses(int **tab, int nb, int x, int y)
 {
 	int			key;
+	int			win;
 	WINDOW		*grid;
 
+	win = 0;
 	initscr();
 	while (1)
 	{
@@ -52,7 +54,7 @@ static int		initncurses(int **tab, int nb, int x, int y)
 		print_tab(grid, tab, nb);
 		key = getch();
 		refresh();
-		if (key_analyse(tab, nb, key) == 0)
+		if (key_analyse(tab, nb, key, &win) == 0)
 			return (0);
 	}
 }
