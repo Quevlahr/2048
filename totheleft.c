@@ -22,10 +22,27 @@ static int		ft_control(int *tab, int j, int num, int nb)
 		else if (tab[j] == 0)
 			j++;
 		else
-			return (0);
+			return (-1);
 	}
-	return (0);
+	return (-1);
 }
+
+static int		ft_helper(int *tab, int *j, int *save_j)
+{
+	tab[*save_j] = tab[*j];
+	tab[*j] = 0;
+	*j = *save_j;
+	*save_j = -1;
+	return (1);
+}
+
+// static void		ft_printcurse(int **tab, int nb)
+// {
+// 	clear();
+// 	initscr();
+// 	print_tab(tab, nb);
+// 	refresh();
+// }
 
 static int		ft_left(int *tab, int nb, int change)
 {
@@ -45,13 +62,7 @@ static int		ft_left(int *tab, int nb, int change)
 		while (save_j >= 0 && j < nb)
 		{
 			if (tab[j] != 0)
-			{
-				tab[save_j] = tab[j];
-				tab[j] = 0;
-				j = save_j;
-				save_j = -1;
-				change = 1;
-			}
+				change = ft_helper(tab, &j, &save_j);
 			else
 				j++;
 		}
@@ -59,24 +70,22 @@ static int		ft_left(int *tab, int nb, int change)
 	return (change);
 }
 
-int				totheleft(int **tab, int nb)
+int				totheleft(int **tab, int nb, int i)
 {
-	int			i;
 	int			j;
 	int			change;
 	int			tmp_j;
 	int			num;
 
-	i = 0;
 	change = 0;
 	while (i < nb)
 	{
 		j = 0;
-
 		while (j < nb)
 		{
-			if ((num = tab[i][j]) && (tmp_j = ft_control(tab[i], j, num, nb)))
+			if ((num = tab[i][j]) && ft_control(tab[i], j, num, nb) != -1)
 			{
+				tmp_j = ft_control(tab[i], j, num, nb);
 				tab[i][tmp_j] = 0;
 				tab[i][j] = num * 2;
 				change += 1;
@@ -84,10 +93,7 @@ int				totheleft(int **tab, int nb)
 			j++;
 		}
 		change += ft_left(tab[i], nb, change);
-		clear();
-		initscr();
-		print_tab(tab, nb);
-		refresh();
+		// ft_printcurse(tab, nb);
 		i++;
 	}
 	return (change);

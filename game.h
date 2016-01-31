@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: quroulon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jaubard <jaubard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 21:30:58 by quroulon          #+#    #+#             */
-/*   Updated: 2016/01/29 21:32:23 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/01/31 11:09:54 by jaubard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@
 # include <ncurses.h>
 # include <time.h>
 
-# define WIN_VALUE 2048
 # define ESCAPE 27
 
-int				main(void);
-int				totheleft(int **tab, int nb);
-int				totheright(int **tab, int nb);
-int				tothetop(int **tab, int nb);
-int				tothebottom(int **tab, int nb);
-int				print_tab(int **tab, int nb);
+enum			e_const
+{
+	WIN_VALUE = 2048
+};
+
+int				totheleft(int **tab, int nb, int i);
+int				totheright(int **tab, int nb, int i);
+int				tothetop(int **tab, int nb, int ij, int j);
+int				tothebottom(int **tab, int nb, int ij, int j);
+int				print_tab(WINDOW *grid, int **tab, int nb);
 
 #endif

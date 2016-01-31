@@ -33,6 +33,23 @@ static int		ft_control(int **tab, int ij, int num, int nb)
 	return (-1);
 }
 
+static int		ft_helper(int **tab, int *i, int j, int *save_i)
+{
+	tab[*save_i][j] = tab[*i][j];
+	tab[*i][j] = 0;
+	*i = *save_i;
+	*save_i = -1;
+	return (1);
+}
+
+// static void		ft_printcurse(int **tab, int nb)
+// {
+// 	clear();
+// 	initscr();
+// 	print_tab(tab, nb);
+// 	refresh();
+// }
+
 static int		ft_top(int **tab, int j, int nb, int change)
 {
 	int			i;
@@ -51,13 +68,7 @@ static int		ft_top(int **tab, int j, int nb, int change)
 		while (save_i >= 0 && i < nb)
 		{
 			if (tab[i][j] != 0)
-			{
-				tab[save_i][j] = tab[i][j];
-				tab[i][j] = 0;
-				i = save_i;
-				save_i = -1;
-				change = 1;
-			}
+				change = ft_helper(tab, &i, j, &save_i);
 			else
 				i++;
 		}
@@ -65,25 +76,22 @@ static int		ft_top(int **tab, int j, int nb, int change)
 	return (change);
 }
 
-int				tothetop(int **tab, int nb)
+int				tothetop(int **tab, int nb, int ij, int j)
 {
 	int			i;
-	int			j;
 	int			num;
 	int			tmp_i;
-	int			ij;
 	int			change;
 
-	j = 0;
 	change = 0;
 	while (j < nb)
 	{
 		i = 0;
-		while (i < nb)
+		while (i < nb && (ij = i * 10 + j) != -1)
 		{
-			ij = i * 10 + j;
-			if ((num = tab[i][j]) && (tmp_i = ft_control(tab, ij, num, nb)) != -1)
+			if ((num = tab[i][j]) && ft_control(tab, ij, num, nb) != -1)
 			{
+				tmp_i = ft_control(tab, ij, num, nb);
 				tab[tmp_i][j] = 0;
 				tab[i][j] = num * 2;
 				change += 1;
@@ -91,10 +99,7 @@ int				tothetop(int **tab, int nb)
 			i++;
 		}
 		change += ft_top(tab, j, nb, change);
-		clear();
-		initscr();
-		print_tab(tab, nb);
-		refresh();
+		// ft_printcurse(tab, nb);
 		j++;
 	}
 	return (change);
