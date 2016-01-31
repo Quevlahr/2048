@@ -10,87 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// pour compiler gcc -Wall -Wextra -Werror *.c -L libft -lft -lncurses
-// http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/helloworld.html pour ncurses
-// On peut utiliser la fonction signal pour detecter un window resize.
-
 #include "game.h"
-
-static void		vertical(WINDOW *grid, int x, int y)
-{
-	int a;
-	int b;
-
-	a = 1;
-	while (a <= 3)
-	{
-		b = 1;
-		while (b < (x - 1))
-		{
-			mvwprintw(grid, 1 * b, (y / 4) * a, "|");
-			b++;
-		}
-		a++;
-	}
-}
-
-static void		horizontal(WINDOW *grid, int x, int y)
-{
-	int a;
-	int b;
-
-	a = 1;
-	while (a <= 3)
-	{
-		b = 1;
-		while (b < (y - 1))
-		{
-			mvwprintw(grid, (x / 4) * a, 1 * b, "-");
-			b++;
-		}
-		a++;
-	}
-}
-
-static void firsttab(WINDOW *grid, int **tab, int x, int y, int b)
-{
-	int a;
-	int c;
-	char *d;
-
-	a = 0;
-	while (a < b)
-	{
-		c = 0;
-		while (c < b)
-		{
-			if (tab[a][c] > 0)
-				d = ft_itoa(tab[a][c]);
-			else
-				d = " ";
-			mvwprintw(grid, x / b / 2 + a * x / b, y / b / 2 + c * y / b, d);
-			c++;
-		}
-		a++;
-	}
-}
-
-static void	print(WINDOW *grid, int **tab, int b)
-{
-	// int a;
-	int x;
-	int y;
-
-	getmaxyx(grid, x, y);
-	vertical(grid, x, y);
-	horizontal(grid, x, y);
-	firsttab(grid, tab, x, y, b);
-	// a = getch();
-	// if (a == 258 || a == 259 || a == 260 || a == 261)
-	// {
-	// 	tab = gamehandler(tab, 4, a);
-	// }
-}
 
 static int		**create_tab(int **tab, int nb)
 {
@@ -115,26 +35,6 @@ static int		**create_tab(int **tab, int nb)
 	return (tab);
 }
 
-static int		all_empty(int **tab, int nb)
-{
-	int			i;
-	int			j;
-
-	i = 0;
-	while (i < nb)
-	{
-		j = 0;
-		while (j < nb)
-		{
-			if (tab[i][j] == 0)
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
 static void		rand_tab(int **tab, int nb)
 {
 	int			rd;
@@ -145,7 +45,7 @@ static void		rand_tab(int **tab, int nb)
 
 	srand((unsigned)time(&t));
 	ok = 1;
-	while (ok != 0 && all_empty(tab, nb) == 0)
+	while (ok != 0 && all_empty(tab, nb, 0) == 0)
 	{
 		x = rand() % nb;
 		y = rand() % nb;
@@ -185,8 +85,7 @@ int				main(void)
 		keypad(stdscr, TRUE);
 		getmaxyx(stdscr, y, x);
 		grid = subwin(stdscr, y, x, 0, 0);
-		// print_tab(tab, nb);
-		print(grid, tab, nb);
+		print_tab(grid, tab, nb);
 		// mvprintw(y / 2, x / 2, "|  x = %d, y = %d  |", x, y);
 		key = getch();
 		refresh();
@@ -195,17 +94,17 @@ int				main(void)
 			endwin();
 			return (0);
 		}
-		// else if (all_empty(tab, nb) != 0)
-		// {
-		// 	clear();
-		// 	initscr();
-		// 	print_tab(tab, nb);
-		// 	mvprintw(y / 2, x / 2 - 4, "Tu as perdu... :(.");
-		// 	refresh();
-		// 	sleep(2);
-		// 	endwin();
-		// 	return (0);
-		// }
+		else if (all_empty(tab, nb, 1) != 0)
+		{
+			clear();
+			initscr();
+			print_tab(grid, tab, nb);
+			mvprintw(y / 2, x / 2 - 4, "Tu as perdu... :(.");
+			refresh();
+			sleep(2);
+			// endwin();
+			// return (0);
+		}
 		else if (key == KEY_LEFT)
 		{
 			if (totheleft(tab, nb, 0) != 0)
