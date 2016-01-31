@@ -12,57 +12,61 @@
 
 #include "game.h"
 
-int				put_color(WINDOW *grid, int y, int x, char *str)
+static void		color1(WINDOW *grid, int y, int x, char *str)
 {
-	start_color();
-	init_pair(0, 1, 0);
-	init_pair(1, 7, 0);
-	init_pair(2, 2, 0);
-	init_pair(3, 3, 0);
-	init_pair(4, 4, 0);
-	init_pair(5, 5, 0);
-	init_pair(6, 6, 0);
 	if (ft_atoi(str) == 2 || ft_atoi(str) == 4)
 	{
-			attron(COLOR_PAIR(1));
-			mvwprintw(grid, y, x, str);
-			// printw("| %5d %5s", tab[i][j], "");
-			attron(COLOR_PAIR(1));
+		wattron(grid, COLOR_PAIR(6));
+		mvwprintw(grid, y, x, str);
+		wattron(grid, COLOR_PAIR(1));
 	}
 	else if (ft_atoi(str) == 8 || ft_atoi(str) == 16)
 	{
-			attron(COLOR_PAIR(2));
-			mvwprintw(grid, y, x, str);
-			// printw("| %5d %5s", tab[i][j], "");
-			attron(COLOR_PAIR(1));
+		wattron(grid, COLOR_PAIR(2));
+		mvwprintw(grid, y, x, str);
+		wattron(grid, COLOR_PAIR(1));
 	}
-	else if (ft_atoi(str) == 32|| ft_atoi(str) == 64)
+}
+
+static void		color2(WINDOW *grid, int y, int x, char *str)
+{
+	if (ft_atoi(str) == 32 || ft_atoi(str) == 64 || ft_atoi(str) == 128)
 	{
-			attron(COLOR_PAIR(3));
-			mvwprintw(grid, y, x, str);
-			// printw("| %5d %5s", tab[i][j], "");
-			attron(COLOR_PAIR(1));
+		wattron(grid, COLOR_PAIR(4));
+		mvwprintw(grid, y, x, str);
+		wattron(grid, COLOR_PAIR(1));
 	}
-	else if (ft_atoi(str) == 128 || ft_atoi(str) == 256)
+	else if (ft_atoi(str) == 256 || ft_atoi(str) == 512)
 	{
-			attron(COLOR_PAIR(4));
-			mvwprintw(grid, y, x, str);
-			// printw("| %5d %5s", tab[i][j], "");
-			attron(COLOR_PAIR(1));
+		wattron(grid, COLOR_PAIR(5));
+		mvwprintw(grid, y, x, str);
+		wattron(grid, COLOR_PAIR(1));
 	}
-	else if (ft_atoi(str) == 512 || ft_atoi(str) == 1024)
+	else if (ft_atoi(str) == 1024 || ft_atoi(str) == 2048)
 	{
-			attron(COLOR_PAIR(5));
-			mvwprintw(grid, y, x, str);
-			// printw("| %5d %5s", tab[i][j], "");
-			attron(COLOR_PAIR(1));
+		wattron(grid, COLOR_PAIR(1));
+		mvwprintw(grid, y, x, str);
+		wattron(grid, COLOR_PAIR(1));
 	}
-	else if (ft_atoi(str) >= 2048 || ft_atoi(str) == 4)
+}
+
+int				put_color(WINDOW *grid, int y, int x, char *str)
+{
+	start_color();
+	init_pair(1, 2, 0);
+	init_pair(2, 3, 0);
+	init_pair(4, 5, 0);
+	init_pair(5, 6, 0);
+	init_pair(6, 7, 0);
+	if (ft_atoi(str) >= 2 && ft_atoi(str) <= 16)
+		color1(grid, y, x, str);
+	else if (ft_atoi(str) >= 32 && ft_atoi(str) <= 2048)
+		color2(grid, y, x, str);
+	else
 	{
-			attron(COLOR_PAIR(6));
-			mvwprintw(grid, y, x, str);
-			// printw("| %5d %5s", tab[i][j], "");
-			attron(COLOR_PAIR(1));
+		wattron(grid, COLOR_PAIR(6));
+		mvwprintw(grid, y, x, str);
+		wattron(grid, COLOR_PAIR(1));
 	}
 	return (0);
 }

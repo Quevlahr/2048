@@ -26,7 +26,10 @@ SRC			=	main.c \
 				ft_right.c \
 				ft_bottom.c \
 				all_empty.c \
-				put_color.c
+				put_color.c \
+				check_win_value.c \
+				key_analyse.c \
+				rand_tab.c
 
 LIB			=	libft/libft.a -lncurses
 

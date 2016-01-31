@@ -14,8 +14,8 @@
 
 static void		colonnes(WINDOW *grid, int x, int y, int nb)
 {
-	int i;
-	int j;
+	int			i;
+	int			j;
 
 	j = 0;
 	while (j <= nb)
@@ -32,8 +32,8 @@ static void		colonnes(WINDOW *grid, int x, int y, int nb)
 
 static void		lignes(WINDOW *grid, int x, int y, int nb)
 {
-	int i;
-	int j;
+	int			i;
+	int			j;
 
 	i = 0;
 	while (i <= nb)
@@ -48,12 +48,14 @@ static void		lignes(WINDOW *grid, int x, int y, int nb)
 	}
 }
 
-static void		ft_puttab(WINDOW *grid, int **tab, int x, int y, int nb)
+static void		ft_puttab(WINDOW *grid, int **tab, int y, int nb)
 {
-	int i;
-	int j;
-	char *str;
+	int			i;
+	int			j;
+	int			x;
+	char		*str;
 
+	getmaxyx(grid, y, x);
 	i = 0;
 	while (i < nb)
 	{
@@ -74,8 +76,8 @@ static void		ft_puttab(WINDOW *grid, int **tab, int x, int y, int nb)
 
 int				print_tab(WINDOW *grid, int **tab, int nb)
 {
-	int x;
-	int y;
+	int			x;
+	int			y;
 
 	getmaxyx(grid, y, x);
 	if (y < 9 || x < 37)
@@ -85,8 +87,6 @@ int				print_tab(WINDOW *grid, int **tab, int nb)
 	}
 	colonnes(grid, x, y, nb);
 	lignes(grid, x, y, nb);
-	ft_puttab(grid, tab, x, y, nb);
+	ft_puttab(grid, tab, y, nb);
 	return (0);
 }
-
-

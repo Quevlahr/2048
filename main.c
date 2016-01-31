@@ -35,47 +35,11 @@ static int		**create_tab(int **tab, int nb)
 	return (tab);
 }
 
-static void		rand_tab(int **tab, int nb)
+static int		initncurses(int **tab, int nb, int x, int y)
 {
-	int			rd;
-	int			x;
-	int			y;
-	time_t		t;
-	int			ok;
-
-	srand((unsigned)time(&t));
-	ok = 1;
-	while (ok != 0 && all_empty(tab, nb, 0) == 0)
-	{
-		x = rand() % nb;
-		y = rand() % nb;
-		if (rand() % 2 == 0)
-			rd = 2;
-		else
-			rd = 4;
-		if (tab[x][y] == 0)
-		{
-			tab[x][y] = rd;
-			ok = 0;
-		}
-	}
-}
-
-int				main(void)
-{
-	int			**tab;
 	int			key;
-	int			x;
-	int			y;
-	int			nb;
-	WINDOW		*grid; //
+	WINDOW		*grid;
 
-	nb = 4;
-	key = 0;
-	tab = NULL;
-	tab = create_tab(tab, nb);
-	rand_tab(tab, nb);
-	rand_tab(tab, nb);
 	initscr();
 	while (1)
 	{
@@ -86,45 +50,30 @@ int				main(void)
 		getmaxyx(stdscr, y, x);
 		grid = subwin(stdscr, y, x, 0, 0);
 		print_tab(grid, tab, nb);
-		// mvprintw(y / 2, x / 2, "|  x = %d, y = %d  |", x, y);
 		key = getch();
 		refresh();
-		if (key == ESCAPE)
-		{
-			endwin();
+		if (key_analyse(tab, nb, key) == 0)
 			return (0);
-		}
-		else if (all_empty(tab, nb, 1) != 0)
-		{
-			clear();
-			initscr();
-			print_tab(grid, tab, nb);
-			mvprintw(y / 2, x / 2 - 4, "Tu as perdu... :(.");
-			refresh();
-			sleep(2);
-			// endwin();
-			// return (0);
-		}
-		else if (key == KEY_LEFT)
-		{
-			if (totheleft(tab, nb, 0) != 0)
-				rand_tab(tab, nb);
-		}
-		else if (key == KEY_RIGHT)
-		{
-			if (totheright(tab, nb, 0) != 0)
-				rand_tab(tab, nb);
-		}
-		else if (key == KEY_UP)
-		{
-			if (tothetop(tab, nb, 0, 0) != 0)
-				rand_tab(tab, nb);
-		}
-		else if (key == KEY_DOWN)
-		{
-			if (tothebottom(tab, nb, 0, 0) != 0)
-				rand_tab(tab, nb);
-		}
 	}
+}
+
+int				main(int ac, char **av)
+{
+	int			**tab;
+	int			nb;
+
+	if (check_win_value(WIN_VALUE, 0) == 0)
+	{
+		ft_putendl("WIN_VALUE is not valid");
+		return (1);
+	}
+	nb = 4;
+	if (ac == 2 && (ft_atoi(av[1]) == 4 || ft_atoi(av[1]) == 5))
+		nb = ft_atoi(av[1]);
+	tab = NULL;
+	tab = create_tab(tab, nb);
+	rand_tab(tab, nb);
+	rand_tab(tab, nb);
+	initncurses(tab, nb, 0, 0);
 	return (0);
 }

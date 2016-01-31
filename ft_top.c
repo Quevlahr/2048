@@ -51,4 +51,3 @@ int				ft_top(int **tab, int nb, int ij, int j)
 	}
 	return (change);
 }
-
