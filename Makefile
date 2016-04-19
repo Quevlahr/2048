@@ -6,7 +6,7 @@
 #    By: quroulon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/31 12:34:30 by quroulon          #+#    #+#              #
-#    Updated: 2016/04/19 12:45:32 by quroulon         ###   ########.fr        #
+#    Updated: 2016/04/19 13:09:42 by quroulon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC			=	main.c \
 LIB			=	libft/libft.a -lncurses
 
 OBJ			=	$(SRC:.c=.o)
+OBJ2		=	$(wildcard *.gch)
 
 HEADER		=	libft/libft.h game.h
 
@@ -48,7 +49,7 @@ $(NAME):
 .SILENT : clean
 clean:
 	cd libft/ && $(MAKE) clean
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(OBJ2)
 	rm -f *.gch
 
 .SILENT : fclean
