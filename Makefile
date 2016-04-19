@@ -6,7 +6,7 @@
 #    By: quroulon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/31 12:34:30 by quroulon          #+#    #+#              #
-#    Updated: 2016/01/31 12:34:46 by quroulon         ###   ########.fr        #
+#    Updated: 2016/04/19 12:45:32 by quroulon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ LIB			=	libft/libft.a -lncurses
 
 OBJ			=	$(SRC:.c=.o)
 
-HEADER		=	libft/includes/libft.h game.h
+HEADER		=	libft/libft.h game.h
 
 all: $(NAME)
 

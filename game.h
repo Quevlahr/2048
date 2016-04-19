@@ -6,14 +6,14 @@
 /*   By: jaubard <jaubard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/29 21:30:58 by quroulon          #+#    #+#             */
-/*   Updated: 2016/01/31 11:09:54 by jaubard          ###   ########.fr       */
+/*   Updated: 2016/04/19 12:45:18 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_H
 # define GAME_H
 
-# include "libft/includes/libft.h"
+# include "libft/libft.h"
 # include <ncurses.h>
 # include <time.h>
 
